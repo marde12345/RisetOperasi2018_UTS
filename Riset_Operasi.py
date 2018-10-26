@@ -1,8 +1,18 @@
 import os
 
-Matrix = [[11, 12, 5, 2], [15, 6,10], [10, 8, 12, 5], [12,15,8,6]]
+Matrix2D = []
+row = int(input("masukkan baris : "))
+col = int(input("masukkan kolom : "))
 
-for i in Matrix:
+for i in range(row):
+	Matrix1D =[]
+	for j in range(col):
+		Matrix1D.append(int(input()))
+	Matrix2D.append(Matrix1D)
+
+print(Matrix2D)
+
+for i in Matrix2D:
 	for j in i:
 		print(j,end=" ")
 	print()
