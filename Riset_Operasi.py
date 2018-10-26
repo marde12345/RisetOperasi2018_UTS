@@ -15,12 +15,15 @@ def create_table(row,col):
 
 def view_table(row,col,list2D):
 	os.system('cls')
+	num = 65
 	for i in range(col):
-		print("\t",i,end='\0')
+		print ( "\t%c" % (num),end="")
+		num = num + 1
 	print()
 
 	for i in list2D:
-		print(list2D.index(i),end="\t")
+		print("%c" % (num),end="\t")
+		num = num + 1
 		for j in i:
 			print(j,end="\t")
 		print()
