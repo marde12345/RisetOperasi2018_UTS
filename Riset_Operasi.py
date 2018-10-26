@@ -1,20 +1,20 @@
 import os
 
-Matrix2D = []
+def create_table(row,col):
+	list2D = []
+
+	for i in range(row):
+		list1D =[]
+		for j in range(col):
+			list1D.append(int(input()))
+		list2D.append(list1D)
+
+	return list2D
+
 row = int(input("masukkan baris : "))
 col = int(input("masukkan kolom : "))
+Matrix2D = []
 
-for i in range(row):
-	Matrix1D =[]
-	for j in range(col):
-		Matrix1D.append(int(input()))
-	Matrix2D.append(Matrix1D)
-
-print(Matrix2D)
-
-for i in Matrix2D:
-	for j in i:
-		print(j,end=" ")
-	print()
+print(create_table(row,col))
 
 #os.system('cls')
