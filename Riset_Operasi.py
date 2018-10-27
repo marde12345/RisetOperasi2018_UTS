@@ -1,5 +1,29 @@
 import os
 
+def nwc(list2D,supply,demand):
+	total = 0
+	x = 0
+	y = 0
+	k = 0
+	while(1):
+		print(++k)
+		if (x >= len(demand)-1 and y >= len(supply)-1):
+			break
+		if supply[y] < demand[x]:
+			total = total + (supply[y] * list2D[x][y])
+			demand[x] = demand[x] - supply[y]
+			y = y + 1
+		elif supply[y] > demand[x]:
+			total = total + (demand[x] * list2D[x][y])
+			supply[y] = supply[y] - demand[x]
+			x = x + 1
+		elif supply[y] == demand[x]:
+			total = total + (supply[y] * list2D[x][y])
+			x = x + 1
+			y = y + 1
+	print (total)
+	return total
+
 def add_supply(row,listpabrik):
 	list = []
 	for i in range(row):
@@ -39,10 +63,6 @@ def create_table(row,col):
 		view_table(row,col,list2D,listtujuan,listpabrik,supply,demand)
 		if input("Apakah benar matrix seperti diatas?(y/n) : ") != "y" :
 			return create_table(row,col)
-	supply = add_supply(row,listpabrik)
-	view_table(row,col,list2D,listtujuan,listpabrik,supply,demand)
-	demand = add_demand(col,listtujuan)
-	view_table(row,col,list2D,listtujuan,listpabrik,supply,demand)
 	return list2D
 
 def view_table(row,col,list2D,listtujuan,listpabrik,supply,demand):
@@ -56,7 +76,7 @@ def view_table(row,col,list2D,listtujuan,listpabrik,supply,demand):
 		print(chr(listpabrik[list2D.index(i)]),end="\t")
 		for j in i:
 			print(j,end="\t")
-		if len(i) <= len(supply) :
+		if row <= len(supply) :
 			print(supply[list2D.index(i)])
 		else:
 			print()
@@ -67,9 +87,17 @@ def view_table(row,col,list2D,listtujuan,listpabrik,supply,demand):
 
 row = int(input("masukkan baris : "))
 col = int(input("masukkan kolom : "))
-Matrix2D = create_table(row,col)
 listtujuan,listpabrik = create_city(row,col)
+Matrix2D = create_table(row,col)
+supply = add_supply(row,listpabrik)
+demand = add_demand(col,listtujuan)
 
+s1 = sum(supply)
+d1 = sum(demand)
+
+view_table(row,col,Matrix2D,listtujuan,listpabrik,supply,demand)
+
+nwc(Matrix2D,supply,demand)
 
 #print(add_supply(row,listpabrik))
 #print(create_table(row,col))
