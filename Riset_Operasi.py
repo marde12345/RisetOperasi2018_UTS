@@ -5,14 +5,14 @@ def add_supply(row,listpabrik):
 	for i in range(row):
 		print ("Masukkan Supply dari Pabrik %s : "%chr(listpabrik[i]))
 		list.append(int(input()))
-		return list
+	return list
 
 def add_demand(col,listtujuan):
 	list = []
 	for i in range(col):
 		print ("Masukkan Demand dari Pabrik %s : "%chr(listtujuan[i]))
 		list.append(int(input()))
-		return list
+	return list
 
 def create_city(row,col):
 	listtujuan = []
@@ -40,8 +40,6 @@ def create_table(row,col):
 		if input("Apakah benar matrix seperti diatas?(y/n) : ") != "y" :
 			return create_table(row,col)
 	supply = add_supply(row,listpabrik)
-	print (supply)
-	input()
 	view_table(row,col,list2D,listtujuan,listpabrik,supply,demand)
 	demand = add_demand(col,listtujuan)
 	view_table(row,col,list2D,listtujuan,listpabrik,supply,demand)
@@ -58,11 +56,14 @@ def view_table(row,col,list2D,listtujuan,listpabrik,supply,demand):
 		print(chr(listpabrik[list2D.index(i)]),end="\t")
 		for j in i:
 			print(j,end="\t")
-		if len(i) < len(supply) :
+		if len(i) <= len(supply) :
 			print(supply[list2D.index(i)])
 		else:
 			print()
-	print ("Demand")
+	print ("Demand",end="\t")
+	for i in demand:
+		print(i,end="\t")
+	print()
 
 row = int(input("masukkan baris : "))
 col = int(input("masukkan kolom : "))
