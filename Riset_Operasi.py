@@ -6,22 +6,20 @@ def nwc(list2D,supply,demand):
 	y = 0
 	k = 0
 	while(1):
-		print(++k)
-		if (x >= len(demand)-1 and y >= len(supply)-1):
+		if (x > len(demand)-1 or y > len(supply)-1):
 			break
 		if supply[y] < demand[x]:
-			total = total + (supply[y] * list2D[x][y])
+			total = total + (supply[y] * list2D[y][x])
 			demand[x] = demand[x] - supply[y]
 			y = y + 1
 		elif supply[y] > demand[x]:
-			total = total + (demand[x] * list2D[x][y])
+			total = total + (demand[x] * list2D[y][x])
 			supply[y] = supply[y] - demand[x]
 			x = x + 1
 		elif supply[y] == demand[x]:
-			total = total + (supply[y] * list2D[x][y])
+			total = total + (supply[y] * list2D[y][x])
 			x = x + 1
 			y = y + 1
-	print (total)
 	return total
 
 def add_supply(row,listpabrik):
