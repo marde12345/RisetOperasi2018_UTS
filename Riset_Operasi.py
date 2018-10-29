@@ -1,26 +1,48 @@
 import os
+import numpy as np
 
 def nwc(list2D,supply,demand):
 	total = 0
 	x = 0
 	y = 0
 	k = 0
+	sup = supply
+	dem = demand
 	while(1):
-		if (x > len(demand)-1 or y > len(supply)-1):
+		if (x > len(dem)-1 or y > len(sup)-1):
 			break
-		if supply[y] < demand[x]:
-			total = total + (supply[y] * list2D[y][x])
-			demand[x] = demand[x] - supply[y]
+		if sup[y] < dem[x]:
+			total = total + (sup[y] * list2D[y][x])
+			dem[x] = dem[x] - sup[y]
 			y = y + 1
-		elif supply[y] > demand[x]:
-			total = total + (demand[x] * list2D[y][x])
-			supply[y] = supply[y] - demand[x]
+		elif sup[y] > dem[x]:
+			total = total + (dem[x] * list2D[y][x])
+			sup[y] = sup[y] - dem[x]
 			x = x + 1
-		elif supply[y] == demand[x]:
-			total = total + (supply[y] * list2D[y][x])
+		elif sup[y] == dem[x]:
+			total = total + (sup[y] * list2D[y][x])
 			x = x + 1
 			y = y + 1
 	return total
+
+def lc(list2D,supply,demand):
+	total = 0
+	while(sum(supply)>0 and sum(demand)>0):
+		print(demand,supply)
+		print(list2D)
+		xy = np.argwhere(list2D == np.min(list2D)).tolist()[0]
+		print(xy)
+		x = xy[1]
+		y = xy[0]
+		
+		sub = min(supply[y],demand[x])
+		total = total + (list2D[y][x] * sub)
+		supply[y] = supply[y] - sub
+		demand[x] = demand[x] - sub
+		list2D[y][x] = 9999
+		
+	return total
+
 
 def add_supply(row,listpabrik):
 	list = []
@@ -87,15 +109,19 @@ row = int(input("masukkan baris : "))
 col = int(input("masukkan kolom : "))
 listtujuan,listpabrik = create_city(row,col)
 Matrix2D = create_table(row,col)
-supply = add_supply(row,listpabrik)
-demand = add_demand(col,listtujuan)
+sup = add_supply(row,listpabrik)
+dem = add_demand(col,listtujuan)
+print(dem,sup)
 
-s1 = sum(supply)
-d1 = sum(demand)
+view_table(row,col,Matrix2D,listtujuan,listpabrik,sup,dem)
 
-view_table(row,col,Matrix2D,listtujuan,listpabrik,supply,demand)
+#a = nwc(Matrix2D,sup,dem)
+#print(a)
+print("2",dem,sup)
+print(lc(Matrix2D,sup,dem))
 
-nwc(Matrix2D,supply,demand)
+#x = np.argwhere(Matrix2D == np.min(Matrix2D)).tolist()[0] #y,x
+#print(x)
 
 #print(add_supply(row,listpabrik))
 #print(create_table(row,col))
